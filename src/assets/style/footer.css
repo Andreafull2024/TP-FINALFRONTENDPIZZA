@@ -1,0 +1,76 @@
+.mi-footer {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 1.5rem 1rem;   /* menos padding */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* centra horizontalmente todo */
+  gap: 1rem;             /* menos separación */
+  margin-top: auto;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column; /* siempre columna */
+  align-items: center;    /* centra logo y redes */
+  gap: 1rem;
+  width: 100%;
+}
+
+.footer-logo {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.logo-img {
+  max-width: 100px;   /* más chico */
+  height: auto;
+  display: block;
+}
+
+.social-icons {
+  display: flex;
+  gap: 0.8rem;        /* menos espacio entre íconos */
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.social-icon {
+  width: 25px;        /* más chico */
+  height: 25px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.social-icon:hover {
+  transform: scale(1.1);
+}
+
+.mi-footer p {
+  margin: 0;
+  font-size: 0.8rem;  /* más chico */
+  text-align: center;
+  padding-top: 0.3rem;
+}
+
+/* 📲 Tablets (>=768px) */
+@media (min-width: 768px) {
+  .logo-img { max-width: 110px; }
+  .social-icon { width: 28px; height: 28px; }
+  .mi-footer p { font-size: 0.9rem; }
+}
+
+/* 💻 Desktop (>=1200px) */
+@media (min-width: 1200px) {
+  .logo-img { max-width: 120px; }
+  .social-icon { width: 30px; height: 30px; }
+  .mi-footer p { font-size: 1rem; }
+}
+
+/* 🖥️ Pantallas grandes (>=1600px) */
+@media (min-width: 1600px) {
+  .logo-img { max-width: 130px; }
+  .social-icon { width: 32px; height: 32px; }
+  .mi-footer p { font-size: 1rem; } /* ya no lo seguimos aumentando */
+}

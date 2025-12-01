@@ -1,0 +1,77 @@
+/* Contenedor principal del pedido */
+.pizza-contenedor {
+  display: flex;              /* un solo card centrado */
+  justify-content: center;
+  padding: 2rem;
+  margin: 0 auto;             /* centrado automático */
+  max-width: 900px;           /* ancho razonable */
+}
+
+.tarjeta-pizza2 {
+  background: #fcf2cd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 800px;           /* límite para que no se estire demasiado */
+}
+
+.btn-agregar {
+  background-color: #e63946;
+  color: white;
+  padding: 0.8rem 1.2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* === SweetAlert2 === */
+.swal2-popup {
+  background: #fcf2cd;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  font-family: 'Arial', sans-serif;
+}
+
+.swal2-title {
+  color: #e63946;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.swal2-html-container {
+  color: #333;
+  font-size: 1rem;
+}
+
+.swal2-confirm {
+  background-color: #e63946 !important;
+  color: white !important;
+  border-radius: 5px !important;
+  padding: 0.6rem 1.2rem !important;
+}
+
+.swal2-cancel {
+  background-color: #999 !important;
+  color: white !important;
+  border-radius: 5px !important;
+  padding: 0.6rem 1.2rem !important;
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+  .pizza-contenedor {
+    padding: 1rem;
+  }
+
+  .tarjeta-pizza {
+    max-width: 100%;
+  }
+
+  .btn-agregar,
+  .swal2-confirm,
+  .swal2-cancel {
+    width: 100%;
+    text-align: center;
+  }
+}

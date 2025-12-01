@@ -1,0 +1,128 @@
+/* Contenedor general */
+.texto {
+  color: #fff;
+  overflow: hidden;
+  max-width: 900px;
+  width: 100%;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+  font-size: 1.2rem; /* base más pequeña para móviles */
+}
+
+/* Alineación del contenido */
+.texto-grid {
+  display: flex;
+  flex-direction: column; /* en móviles columna */
+  gap: 20px;
+}
+
+/* Imagen oculta en móviles */
+.texto-image {
+  display: none;
+}
+
+/* Título */
+.texto-contenido h1 {
+  font-size: 2rem; /* más chico en móviles */
+  margin-bottom: 30px;
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  transform: translateY(30px);
+  text-shadow: 3px 3px 8px rgba(0,0,0,0.6);
+}
+
+/* Párrafo */
+.texto-contenido p {
+  line-height: 1.5;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  text-align: justify;
+  transform: translateY(20px);
+  opacity: 0;
+  animation: aparecerTexto 1.5s ease-out 0.5s forwards;
+}
+
+/* Animación de entrada */
+@keyframes aparecerTexto {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 📲 Tablets (>=768px) */
+@media (min-width: 768px) {
+  .texto {
+    font-size: 1.4rem;
+    padding: 30px;
+  }
+
+  .texto-grid {
+    flex-direction: row; /* texto e imagen lado a lado */
+    align-items: center;
+  }
+
+  .texto-image {
+    display: block; /* mostrar imagen en tablets */
+    max-width: 300px;
+    margin-left: 20px;
+  }
+
+  .texto-contenido h1 {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+  }
+
+  .texto-contenido p {
+    font-size: 1.3rem;
+  }
+}
+
+/* 💻 Desktop estándar (>=1200px) */
+@media (min-width: 1200px) {
+  .texto {
+    max-width: 1000px;
+    font-size: 1.5rem;
+    padding: 40px;
+  }
+
+  .texto-image {
+    max-width: 400px;
+  }
+
+  .texto-contenido h1 {
+    font-size: 3rem;
+    margin-bottom: 60px;
+  }
+
+  .texto-contenido p {
+    font-size: 1.4rem;
+  }
+}
+
+/* 🖥️ Pantallas grandes (>=1600px) */
+@media (min-width: 1600px) {
+  .texto {
+    max-width: 1200px;
+    font-size: 1.6rem;
+    padding: 50px;
+  }
+
+  .texto-image {
+    max-width: 500px;
+  }
+
+  .texto-contenido h1 {
+    font-size: 3.5rem;
+  }
+
+  .texto-contenido p {
+    font-size: 1.5rem;
+  }
+}
