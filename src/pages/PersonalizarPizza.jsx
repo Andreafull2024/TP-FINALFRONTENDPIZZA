@@ -47,7 +47,7 @@ function PersonalizarPizza() {
     };
 
     try {
-      const res = await fetch(`${API_URL}/personalizar-pizzas`, {
+      const res = await fetch(`${API_URL}/personalizarpizzas`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(pizzaPersonalizada),
