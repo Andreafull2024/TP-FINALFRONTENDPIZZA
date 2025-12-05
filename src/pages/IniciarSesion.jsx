@@ -18,7 +18,7 @@ function IniciarSesion() {
     if (isLogin) {
       // LOGIN
       try {
-        const res = await fetch(`${API_URL}/clientes/Iniciar-sesion`, {
+        const res = await fetch(`${API_URL}/clientes/iniciar-sesion`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -57,7 +57,7 @@ function IniciarSesion() {
     } else {
       // REGISTRO
       try {
-        const res = await fetch(`${API_URL}/clientes/register`, {
+        const res = await fetch(`${API_URL}/clientes/iniciar-sesion`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
