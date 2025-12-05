@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../assets/style/Registro.css';
 import Swal from 'sweetalert2';
+import { API_URL } from "../config";   // 👈 importamos la URL
 
 function LoginForm() {
   const [email, setEmail] = useState('');
@@ -11,7 +12,7 @@ function LoginForm() {
 
   const iniciarSesion = async () => {
     try {
-      const response = await fetch('http://localhost:3000/clientes/login', {
+      const response = await fetch(`${API_URL}/clientes/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -33,7 +34,7 @@ function LoginForm() {
         Swal.fire('Error', data.message || 'Usuario o clave incorrectos', 'error');
       }
     } catch (error) {
-      console.error(error);
+      console.error('🚨 Error en iniciarSesion:', error);
       Swal.fire('Error', 'No se pudo conectar al servidor', 'error');
     }
   };

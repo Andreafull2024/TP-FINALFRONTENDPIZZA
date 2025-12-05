@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../assets/style/Registro.css';
+import '../assets/style/registro.css';
+import Swal from 'sweetalert2';
+import { API_URL } from "../config";   // 👈 importamos la URL
 
 function RegisterForm() {
   const [usuario, setUsuario] = useState('');
@@ -13,19 +15,36 @@ function RegisterForm() {
   const registrarUsuario = async () => {
     if (usuario && correo && clave) {
       try {
-        await axios.post('http://localhost:3000/clientes', {
+        await axios.post(`${API_URL}/clientes/register`, {
           nombre_usuario: usuario.trim(),
           email: correo,
           contraseña: clave,
         });
-        alert('Registro completo');
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Registro completo',
+          text: 'Tu cuenta fue creada correctamente',
+          confirmButtonColor: '#2a9d8f',
+        });
+
         navigate('/usuarios');
       } catch (error) {
         const mensaje = error.response?.data?.message || 'Error al registrar';
-        alert(mensaje);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: mensaje,
+          confirmButtonColor: '#d62828',
+        });
       }
     } else {
-      alert('Por favor completá todos los campos');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Campos incompletos',
+        text: 'Por favor completá todos los campos',
+        confirmButtonColor: '#f4a261',
+      });
     }
   };
 

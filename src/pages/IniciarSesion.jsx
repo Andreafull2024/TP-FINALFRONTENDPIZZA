@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/style/IniciarSesion.css";
 import Swal from "sweetalert2";
+import { API_URL } from "../config";   // 👈 importamos la URL
 
 function IniciarSesion() {
   const [isLogin, setIsLogin] = useState(true);
@@ -17,11 +18,11 @@ function IniciarSesion() {
     if (isLogin) {
       // LOGIN
       try {
-        const res = await fetch("http://localhost:3000/clientes/login", {
+        const res = await fetch(`${API_URL}/clientes/login`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            nombre_usuario: email,   // 👈 usamos email como nombre_usuario
+            nombre_usuario: email,
             contraseña: password,
           }),
         });
@@ -29,7 +30,6 @@ function IniciarSesion() {
         const data = await res.json();
 
         if (res.ok) {
-          // 👇 guardamos siempre con la clave "cliente"
           localStorage.setItem("cliente", JSON.stringify(data.cliente));
 
           Swal.fire({
@@ -57,11 +57,11 @@ function IniciarSesion() {
     } else {
       // REGISTRO
       try {
-        const res = await fetch("http://localhost:3000/clientes", {
+        const res = await fetch(`${API_URL}/clientes/register`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            nombre_usuario: email,   // 👈 unificamos con login
+            nombre_usuario: email,
             email,
             contraseña: password,
           }),
@@ -70,7 +70,6 @@ function IniciarSesion() {
         const data = await res.json();
 
         if (res.ok) {
-          // 👇 opcional: guardar sesión automáticamente al registrarse
           localStorage.setItem("cliente", JSON.stringify(data.cliente));
 
           Swal.fire({

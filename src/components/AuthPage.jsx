@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginForm from './LoginForm'; // Importa tu componente de login
 import RegisterForm from './RegisterForm';
-import '../assets/style/Registro.css'; // Asegurate que el nombre del archivo sea correcto
+import '../assets/style/registro.css'; // Asegurate que el nombre del archivo sea correcto
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function AuthPage() {

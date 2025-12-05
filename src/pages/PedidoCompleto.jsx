@@ -1,8 +1,10 @@
+
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PedidoContext } from '../context/PedidoContext';
 import Swal from 'sweetalert2';
 import '../assets/style/PedidoCompleto.css';
+import { API_URL } from "../config";   // 👈 importamos la URL
 
 function PedidoCompleto() {
   const { pedidoLista, setPedidoLista, setPedido } = useContext(PedidoContext);
@@ -26,7 +28,6 @@ function PedidoCompleto() {
       return;
     }
 
-    // Validaciones según medio de pago
     if (pago === "Tarjeta" && (!numeroTarjeta || !vencimiento || !cvv)) {
       Swal.fire({ icon: 'warning', title: 'Datos incompletos', text: 'Completá todos los datos de la tarjeta' });
       return;
@@ -37,7 +38,6 @@ function PedidoCompleto() {
       return;
     }
 
-    // Validar dirección si corresponde
     if ((envio === "Envío a domicilio" || envio === "Envío express") && !direccion) {
       Swal.fire({ icon: 'warning', title: 'Falta dirección', text: 'Ingresá tu dirección de entrega' });
       return;
@@ -61,34 +61,38 @@ function PedidoCompleto() {
     };
 
     try {
-      const resPedido = await fetch('http://localhost:3000/pedidos', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(pedidoBase)
+      // 👇 enviamos el pedido al backend
+      const resPedido = await fetch(`${API_URL}/clientes/pedidos`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(pedidoBase),
       });
 
-      if (!resPedido.ok) throw new Error('Error al crear el pedido');
+      if (!resPedido.ok) throw new Error("Error al crear el pedido");
+
       const pedidoCreado = await resPedido.json();
       const pedidoId = pedidoCreado.id;
 
+      // 👇 enviamos cada detalle de pizza
       for (const pizza of pedidoLista) {
         const detalle = {
           pedidoId,
           cantidad: pizza.cantidad,
           ...(pizza.tipo === "personalizada"
             ? { pizzaPersonalizadaId: pizza.id }
-            : { pizzaId: pizza.id })
+            : { pizzaId: pizza.id }),
         };
 
-        const resDetalle = await fetch('http://localhost:3000/detalle-pedido', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(detalle)
+        const resDetalle = await fetch(`${API_URL}/detalle-pedido`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(detalle),
         });
 
-        if (!resDetalle.ok) throw new Error('Error al guardar detalle');
+        if (!resDetalle.ok) throw new Error("Error al guardar detalle");
       }
 
+      // 👇 actualizamos estado local
       setPedido(pedidoBase);
       setPedidoLista([]);
       setPedidoEnviado(true);
@@ -105,7 +109,6 @@ function PedidoCompleto() {
       Swal.fire({ icon: 'error', title: 'Error', text: 'Hubo un problema al confirmar el pedido' });
     }
   };
-
   return (
     <div className="pizza-contenedor">
       <div className="tarjeta-pizza2">

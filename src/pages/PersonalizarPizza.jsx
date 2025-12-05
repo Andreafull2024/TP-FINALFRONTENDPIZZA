@@ -4,6 +4,7 @@ import { ingredientes } from '../data/ingredientes';
 import { PedidoContext } from '../context/PedidoContext';
 import Swal from 'sweetalert2';
 import '../assets/style/PersonalizarPizza.css';
+import { API_URL } from "../config";   // 👈 importamos la URL
 
 function PersonalizarPizza() {
   const [nombrePizza, setNombrePizza] = useState('');
@@ -46,52 +47,50 @@ function PersonalizarPizza() {
     };
 
     try {
-      const res = await fetch('http://localhost:3000/personalizar-pizzas', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(pizzaPersonalizada)
+      const res = await fetch(`${API_URL}/personalizar-pizzas`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(pizzaPersonalizada),
       });
 
       if (!res.ok) {
-        throw new Error('Error al guardar la pizza');
+        throw new Error("Error al guardar la pizza");
       }
 
       const pizzaGuardada = await res.json();
       console.log("🍕 Pizza guardada:", pizzaGuardada);
 
-      // 👇 Adaptamos para que siempre tenga id y estructura uniforme
       const pizzaConCarrito = {
-        id: pizzaGuardada.id,                   // ✅ importante para PedidoCompleto
+        id: pizzaGuardada.id,
         nombre: pizzaGuardada.nombre,
         precio: pizzaGuardada.precio,
         cantidad: 1,
         subtotal: pizzaGuardada.precio,
-        masa: pizzaGuardada.masa,               // usamos lo que devuelve el backend
+        masa: pizzaGuardada.masa,
         salsa: pizzaGuardada.salsa,
-        toppings: pizzaGuardada.ingredientes    // ya viene como array de strings
+        toppings: pizzaGuardada.ingredientes,
       };
 
-      setPedidoLista(prev => [...prev, pizzaConCarrito]);
+      setPedidoLista((prev) => [...prev, pizzaConCarrito]);
 
       Swal.fire({
-        icon: 'success',
-        title: '¡Pizza agregada!',
+        icon: "success",
+        title: "¡Pizza agregada!",
         text: `Agregaste "${pizzaGuardada.nombre}" al carrito por $${pizzaGuardada.precio}`,
-        confirmButtonColor: '#2a9d8f',
+        confirmButtonColor: "#2a9d8f",
       }).then(() => {
-        navigate('/pedido');
+        navigate("/pedido");
       });
-      
     } catch (error) {
-      console.error('🚨 Error al guardar pizza personalizada:', error);
+      console.error("🚨 Error al guardar pizza personalizada:", error);
       Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        text: 'No se pudo guardar la pizza personalizada',
-        confirmButtonColor: '#d62828',
+        icon: "error",
+        title: "Error",
+        text: "No se pudo guardar la pizza personalizada",
+        confirmButtonColor: "#d62828",
       });
     }
-  };
+  }; // 👈 acá cerramos bien handleAgregar
 
   return (
     <div className="pizza-contenedor1">
