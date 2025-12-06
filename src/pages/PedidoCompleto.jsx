@@ -62,7 +62,7 @@ function PedidoCompleto() {
 
     try {
       // 👇 enviamos el pedido al backend
-      const resPedido = await fetch(`${API_URL}/clientes/pedidos`, {
+      const resPedido = await fetch(`${API_URL}/pedidos`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(pedidoBase),
